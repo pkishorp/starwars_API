@@ -72,6 +72,7 @@ if __name__ == "__main__":
     print(f"parsed arguments are - {arguments}")
 
     resources = generate_random_numbers(int(arguments.count))
+
     print(f"[ INFO ] produced {len(resources)}"
           f" random resource ids in range(1, 83).")
 
@@ -89,4 +90,4 @@ if __name__ == "__main__":
         # capturing name from dict object
         data.append(result.get("name"))
 
-    print(data)
+        print(data)
