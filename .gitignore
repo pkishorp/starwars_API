@@ -2,4 +2,5 @@
 *.log
 venv
 *.pyc
-.idea
+.idea/
+*.__pyache__/
