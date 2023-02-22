@@ -4,7 +4,7 @@ from models.basemodel import Base
 from typing import List, Optional
 
 
-class Character_(Base):
+class People_(Base):
     name: str
     height: str
     mass: str
@@ -53,5 +53,5 @@ if __name__ == "__main__":
     "url": "https://swapi.dev/api/people/1/"
 }
 
-    obj = Character_(**external)
+    obj = People_(**external)
     print(obj)

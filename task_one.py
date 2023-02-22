@@ -30,10 +30,10 @@ def generate_15_random_numbers():
     return result
 
 
-def get_url(resource_id):
+def get_url(resource_id, url):
     home_url = "https://swapi.dev"
     relative_url = "/api/people/{}"
-    absolute_url = home_url + relative_url.format(resource_id)
+    absolute_url = home_url + relative_url.format(resource_id, url)
     return absolute_url
 
 

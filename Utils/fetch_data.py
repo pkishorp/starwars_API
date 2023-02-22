@@ -19,11 +19,11 @@ def mylogger(func):
     def wrapper(url, **kwargs):
         try:
             logging.info(f"we are hitting - {url}")
-            result_ = func(url)
-            logging.info(f"success - {result_.status_code}")
+            final_output = func(url)
+            logging.info(f"success - {final_output.status_code}")
         except Exception:
             logging.error("there are issues in fetching details")
-        return result_
+        return final_output
     return wrapper
 
 
