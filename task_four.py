@@ -12,6 +12,7 @@
     - and pull data for them
 5. TODO - convert the script into CLI application
 6. TODO - pretty pprint output (from ppprint import ppprint)
+
 """
 
 import argparse

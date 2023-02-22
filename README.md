@@ -6,6 +6,7 @@ Website::https://swapi.dev/documentation
 
 
 PROJECT STRUCTURE
+--------------------
 starwarsAPI (project root directory)
 
   - task_one.py 
