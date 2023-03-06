@@ -2,6 +2,7 @@
 from dataclasses import dataclass
 # further creation 
 
+
 @dataclass
 class InventoryItem:
     """Class for keeping track of an item in inventory."""
