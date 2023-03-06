@@ -1,6 +1,6 @@
 
 from dataclasses import dataclass
-
+# no data added
 
 @dataclass
 class InventoryItem:
