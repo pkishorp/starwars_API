@@ -1,6 +1,6 @@
 
 from dataclasses import dataclass
-
+# further creation 
 
 @dataclass
 class InventoryItem:
