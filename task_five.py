@@ -221,7 +221,6 @@ def store_species_data():
                       "edited",
                       "url"
                       ]
-
     for specie in species:
         response = hit_url(specie)
         specie_data = response.json()
