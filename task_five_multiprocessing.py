@@ -1,17 +1,6 @@
-"""
-TODO
-1. Pull data for the first movie ("A New Hope") and save in DB.
-2. Replace the data for each endpoint listed in the JSON object and insert
-that data into database table
-For example - "A new hope" movie has following resource endpoints -
-- characters
-- planets
-- starships
-- vehicles
-- species
-"""
 from typing import List
 from pydantic import parse_obj_as
+import multiprocessing
 from resources.flims import Film
 
 from models.datamodels.films import Film_
@@ -23,8 +12,12 @@ from models.datamodels.starships import Starship_
 
 from dal.db_conn_helper import get_db_conn
 from dal.dml import insert_resource
-from Utils.fetch_data import hit_url, fetch_data
+from Utils.fetch_data import fetch_data_new
 from Utils.timing import timeit
+
+pool = multiprocessing.Pool(4)
+
+
 def store_characters_data():
     characters = film_data.characters
     char_columns = ["name",
@@ -40,10 +33,11 @@ def store_characters_data():
                     "edited",
                     "url"
                     ]
-    for char in characters:
-        response = hit_url(char)
-        char_data = response.json()
-        char_data = People_(**char_data)
+
+    characters_data = pool.map(fetch_data_new, characters)
+    chars_data = parse_obj_as(List[People_], characters_data)
+    for char_data in chars_data:
+        char_data = People_(**dict(char_data))
         char_values = [char_data.name,
                        char_data.height,
                        char_data.mass,
@@ -81,10 +75,10 @@ def store_planets_data():
                       "url"
                       ]
 
-    for planet in planets:
-        response = hit_url(planet)
-        planet_data = response.json()
-        planet_data = Planet_(**planet_data)
+    planets_data = pool.map(fetch_data_new, planets)
+    planets_data = parse_obj_as(List[Planet_], planets_data)
+    for planet_data in planets_data:
+        planet_data = Planet_(**dict(planet_data))
         planet_values = [planet_data.name,
                          planet_data.rotation_period,
                          planet_data.orbital_period,
@@ -125,10 +119,10 @@ def store_vehicles_data():
                        "url"
                        ]
 
-    for vehicle in vehicles:
-        response = hit_url(vehicle)
-        vehicle_data = response.json()
-        vehicle_data = Vehicle_(**vehicle_data)
+    vehicles_data = pool.map(fetch_data_new, vehicles)
+    vehicles_data = parse_obj_as(List[Vehicle_], vehicles_data)
+    for vehicle_data in vehicles_data:
+        vehicle_data = Vehicle_(**dict(vehicle_data))
         vehicle_values = [vehicle_data.name,
                           vehicle_data.model,
                           vehicle_data.manufacturer,
@@ -174,10 +168,10 @@ def store_starships_data():
                         "url"
                         ]
 
-    for starship in starships:
-        response = hit_url(starship)
-        starship_data = response.json()
-        starship_data = Starship_(**starship_data)
+    starships_data = pool.map(fetch_data_new, starships)
+    starships_data = parse_obj_as(List[Starship_], starships_data)
+    for starship_data in starships_data:
+        starship_data = Starship_(**dict(starship_data))
         starship_values = [starship_data.name,
                            starship_data.model,
                            starship_data.manufacturer,
@@ -222,10 +216,10 @@ def store_species_data():
                       "url"
                       ]
 
-    for specie in species:
-        response = hit_url(specie)
-        specie_data = response.json()
-        specie_data = Specie_(**specie_data)
+    species_data = pool.map(fetch_data_new, species)
+    species_data = parse_obj_as(List[Specie_], species_data)
+    for specie_data in species_data:
+        specie_data = Specie_(**dict(specie_data))
         specie_values = [specie_data.name,
                          specie_data.classification,
                          specie_data.designation,

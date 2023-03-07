@@ -12,11 +12,10 @@ class Specie_(Base):
     hair_colors: str
     skin_colors: str
     language: str
-    homeworld: str
+    homeworld: Optional[str]
 
     people: Optional[List[str]]
     films: Optional[List[str]]
-
 
 
 if __name__ == '__main__':
